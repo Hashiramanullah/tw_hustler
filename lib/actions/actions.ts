@@ -37,7 +37,7 @@ export const getProducts = async () => {
   }
 };
 
-export const getProductDetails = async (productId) => {
+export const getProductDetails = async (productId:any) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`);
     if (!res.ok) {
@@ -50,7 +50,7 @@ export const getProductDetails = async (productId) => {
   }
 };
 
-export const getSearchedProducts = async (query) => {
+export const getSearchedProducts = async (query:any) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search/${query}`);
     if (!res.ok) {
@@ -63,7 +63,7 @@ export const getSearchedProducts = async (query) => {
   }
 };
 
-export const getOrders = async (customerId) => {
+export const getOrders = async (customerId:any) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders/customers/${customerId}`);
     if (!res.ok) {
@@ -76,7 +76,7 @@ export const getOrders = async (customerId) => {
   }
 };
 
-export const getRelatedProducts = async (productId) => {
+export const getRelatedProducts = async (productId:any) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}/related`);
     if (!res.ok) {
