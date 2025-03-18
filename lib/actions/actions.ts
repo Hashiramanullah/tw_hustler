@@ -11,7 +11,7 @@ export const getCollections = async () => {
   }
 };
 
-export const getCollectionDetails = async (collectionId) => {
+export const getCollectionDetails = async (collectionId:any) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/collections/${collectionId}`);
     if (!res.ok) {
