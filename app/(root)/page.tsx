@@ -2,13 +2,15 @@ import Collections from "@/components/Collections";
 import ProductList from "@/components/ProductList";
 
 import Image from "next/image";
-import MovingCard from "../famous/famousProduct";
+import MovingCard from "../homeComponents/famousProduct";
+import Banner from "../homeComponents/banner";
 
 export default function Home() {
   return (
     <>
-      <Image src="/banner.png" alt="banner" width={2000} height={1000} className="w-screen" />
+      {/* <Image src="/banner.png" alt="banner" width={2000} height={1000} className="w-screen" /> */}
       {/* <Collections /> */}
+      <Banner/>
       <ProductList />
       <MovingCard/>
     </>
