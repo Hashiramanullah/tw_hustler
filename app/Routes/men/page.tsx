@@ -63,24 +63,30 @@ const CategoryPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* 🔹 Breadcrumb Navigation */}
-      <nav className="p-4 bg-white shadow-md text-sm text-gray-500">
+      {/* Breadcrumb Navigation */}
+      <nav className="p-4 bg-gray-600 shadow-md text-sm text-white">
         <span className="cursor-pointer hover:text-gray-700" onClick={() => router.push("/")}>Home</span> 
         <span className="mx-2"> / </span>
         <span className="font-semibold text-gray-800 capitalize">{categoryKey}</span>
       </nav>
 
-      {/* 🔹 Banner Section (Dynamic) */}
-      <div
-        className="relative w-full h-72 sm:h-[60vh] bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: `url(${category.banner})` }}
-      >
-        <h1 className="text-3xl sm:text-5xl font-bold text-white bg-black bg-opacity-50 px-6 py-3 rounded-lg capitalize">
-          {categoryKey}'s Collection
-        </h1>
-      </div>
+      {/* Banner Section (Dynamic) */}
+      <div className="relative w-full h-60 sm:h-[50vh] flex items-center justify-center overflow-hidden">
+  <img
+    className="absolute inset-0 w-full h-full object-cover"
+    src="/men_hover.jpg"
+    alt={`${categoryKey} collection`}
+  />
+  <div className="relative z-10 text-center">
+    <h1 className="text-3xl sm:text-5xl font-bold text-white bg-black bg-opacity-60 px-6 py-3 rounded-lg capitalize">
+      {categoryKey}'s Collection
+    </h1>
+  </div>
+  <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+</div>
 
-      {/* 🔹 Subcategories */}
+
+      {/* Subcategories */}
       <div className="flex flex-wrap justify-center gap-4 py-6 px-4">
         {category.subcategories.map((item, index) => (
           <button
@@ -93,11 +99,11 @@ const CategoryPage = () => {
         ))}
       </div>
 
-      {/* 🔹 Product Listings */}
-      <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Product Listings */}
+      <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product) => (
           <div key={product.id} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer">
-            <img className="w-full h-60 object-cover rounded-md" src={product.image} alt={product.name} />
+            <img className="w-full h-48 object-cover rounded-md" src={product.image} alt={product.name} />
             <h2 className="text-lg font-semibold mt-3">{product.name}</h2>
             <p className="text-gray-600">{product.price}</p>
             <button className="mt-4 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg w-full hover:bg-blue-700 transition">

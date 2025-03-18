@@ -40,7 +40,11 @@ const Navbar = () => {
             pathname === "/wishlist" && "text-red-1"
           }`}
         >
-          Wishlist
+        Men
+
+
+
+
         </Link>
         <Link
           href={user ? "/orders" : "/sign-in"}
@@ -48,7 +52,24 @@ const Navbar = () => {
             pathname === "/orders" && "text-red-1"
           }`}
         >
-          Orders
+          Women
+        </Link>
+        <Link
+          href={user ? "/orders" : "/sign-in"}
+          className={`hover:text-red-1 ${
+            pathname === "/orders" && "text-red-1"
+          }`}
+        >
+          Kids
+        </Link>
+        <Link
+          href={user ? "/orders" : "/sign-in"}
+          className={`hover:text-red-1 ${
+            pathname === "/orders" && "text-red-1"
+          }`}
+        >
+          Electronic
+
         </Link>
       </div>
 
@@ -90,16 +111,28 @@ const Navbar = () => {
               href={user ? "/wishlist" : "/sign-in"}
               className="hover:text-red-1"
             >
-              Wishlist
+              Men
             </Link>
             <Link
-              href={user ? "/orders" : "/sign-in"}
+              href={user ? "/wishlist" : "/sign-in"}
               className="hover:text-red-1"
             >
-              Orders
+              Women
             </Link>
             <Link
-              href="/cart"
+              href={user ? "/wishlist" : "/sign-in"}
+              className="hover:text-red-1"
+            >
+              Kids
+            </Link>
+            <Link
+            href={'/kids'}
+              className="hover:text-red-1"
+            >
+              Electronics
+            </Link>
+            <Link
+              href={user ? "/cart" : "/sign-in"}
               className="flex items-center gap-3 border rounded-lg px-2 py-1 hover:bg-black hover:text-white"
             >
               <ShoppingCart />
