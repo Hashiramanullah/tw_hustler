@@ -94,8 +94,8 @@ const MovingCarousel = () => {
           </motion.div>
           <div className="absolute inset-0 flex items-end justify-center">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-800 tracking-wide text-center">
-              Famous Products
-            </h1>
+  just famoue
+             </h1>
           </div>
         </div>
       )}
