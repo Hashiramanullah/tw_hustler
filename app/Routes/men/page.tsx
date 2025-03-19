@@ -64,34 +64,36 @@ const CategoryPage = () => {
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Breadcrumb Navigation */}
-      <nav className="p-4 bg-gray-600 shadow-md text-sm text-white">
-        <span className="cursor-pointer hover:text-gray-700" onClick={() => router.push("/")}>Home</span> 
-        <span className="mx-2"> / </span>
-        <span className="font-semibold text-gray-800 capitalize">{categoryKey}</span>
+      <nav className="p-4 bg-gray-800 text-white shadow-md">
+        <span
+          className="cursor-pointer hover:underline"
+          onClick={() => router.push("/")}
+        >
+          Home
+        </span>
+        <span className="mx-2">/</span>
+        <span className="font-bold capitalize">{categoryKey}</span>
       </nav>
 
-      {/* Banner Section (Dynamic) */}
+      {/* Banner Section */}
       <div className="relative w-full h-60 sm:h-[50vh] flex items-center justify-center overflow-hidden">
-  <img
-    className="absolute inset-0 w-full h-full object-cover"
-    src="/men_hover.jpg"
-    alt={`${categoryKey} collection`}
-  />
-  <div className="relative z-10 text-center">
-    <h1 className="text-3xl sm:text-5xl font-bold text-white bg-black bg-opacity-60 px-6 py-3 rounded-lg capitalize">
-      {categoryKey}'s Collection
-    </h1>
-  </div>
-  <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-</div>
-
+        <img
+          className="absolute inset-0 w-full h-full object-cover"
+          src={category.banner}
+          alt={`${categoryKey} collection`}
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <h1 className="relative z-10 text-3xl sm:text-5xl font-bold text-white capitalize">
+          {categoryKey}'s Collection
+        </h1>
+      </div>
 
       {/* Subcategories */}
-      <div className="flex flex-wrap justify-center gap-4 py-6 px-4">
+      <div className="py-6 px-4 flex flex-wrap justify-center gap-4">
         {category.subcategories.map((item, index) => (
           <button
             key={index}
-            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-all"
             onClick={() => router.push(item.path)}
           >
             {item.name}
@@ -102,13 +104,25 @@ const CategoryPage = () => {
       {/* Product Listings */}
       <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product) => (
-          <div key={product.id} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition cursor-pointer">
-            <img className="w-full h-48 object-cover rounded-md" src={product.image} alt={product.name} />
-            <h2 className="text-lg font-semibold mt-3">{product.name}</h2>
-            <p className="text-gray-600">{product.price}</p>
-            <button className="mt-4 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg w-full hover:bg-blue-700 transition">
-              View Details
-            </button>
+          <div
+            key={product.id}
+            className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-all cursor-pointer"
+          >
+            <img
+              className="w-full h-48 object-cover rounded-t-lg"
+              src={product.image}
+              alt={product.name}
+            />
+            <div className="mt-4">
+              <h2 className="text-lg font-semibold">{product.name}</h2>
+              <p className="text-gray-600">{product.price}</p>
+              <button
+                className="mt-4 px-4 py-2 bg-blue-600 text-white font-medium rounded-lg w-full hover:bg-blue-700 transition"
+                onClick={() => alert(`View details of ${product.name}`)}
+              >
+                View Details
+              </button>
+            </div>
           </div>
         ))}
       </div>
