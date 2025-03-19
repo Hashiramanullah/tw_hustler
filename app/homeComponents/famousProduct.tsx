@@ -19,6 +19,7 @@ const images = [
 const MovingCarousel = () => {
   const [rotate, setRotate] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [counter, setCounter] = useState(3);
   const [translateZ, setTranslateZ] = useState(getTranslateZ());
 
   useEffect(() => {
@@ -29,20 +30,43 @@ const MovingCarousel = () => {
   }, []);
 
   useEffect(() => {
-    // Simulate loader delay (3–5 seconds)
-    const timer = setTimeout(() => setIsLoaded(true), 4000);
-    return () => clearTimeout(timer);
+    // Counter animation for 3 seconds
+    let counterInterval = setInterval(() => {
+      setCounter((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    // Preload all images
+    const preloadImages = () => {
+      let loadedImages = 0;
+      images.forEach((src) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          loadedImages++;
+          if (loadedImages === images.length) {
+            setTimeout(() => setIsLoaded(true), 1000); // Show loader for extra 1 sec
+          }
+        };
+      });
+    };
+
+    preloadImages();
+
+    return () => clearInterval(counterInterval);
   }, []);
 
   useEffect(() => {
-    // Rotate the carousel periodically
-    const interval = setInterval(() => {
-      setRotate((prev) => prev + 46);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+    if (isLoaded) {
+      // Start rotation only after loading is complete
+      const interval = setInterval(() => {
+        setRotate((prev) => prev + 46);
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isLoaded]);
 
   function getTranslateZ() {
+    if (typeof window === "undefined") return "400px";
     if (window.innerWidth <= 768) return "300px";
     if (window.innerWidth <= 1024) return "400px";
     return "500px";
@@ -51,8 +75,16 @@ const MovingCarousel = () => {
   return (
     <div className="w-full h-screen">
       {!isLoaded ? (
-        <div className="w-full h-full flex items-center justify-center bg-gray-200">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
+          {/* Counter Animation */}
+          <motion.div
+            className="text-6xl font-bold text-gray-800"
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 1 }}
+          >
+            {counter}
+          </motion.div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 mt-4"></div>
         </div>
       ) : (
         <div className="relative w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden">
