@@ -19,23 +19,16 @@ const images = [
 const MovingCarousel = () => {
   const [rotate, setRotate] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [counter, setCounter] = useState(3);
+  const [isHovered, setIsHovered] = useState(false);
   const [translateZ, setTranslateZ] = useState(getTranslateZ());
 
   useEffect(() => {
-    // Adjust carousel depth on window resize
     const handleResize = () => setTranslateZ(getTranslateZ());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
-    // Counter animation for 3 seconds
-    let counterInterval = setInterval(() => {
-      setCounter((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-
-    // Preload all images
     const preloadImages = () => {
       let loadedImages = 0;
       images.forEach((src) => {
@@ -44,26 +37,23 @@ const MovingCarousel = () => {
         img.onload = () => {
           loadedImages++;
           if (loadedImages === images.length) {
-            setTimeout(() => setIsLoaded(true), 1000); // Show loader for extra 1 sec
+            setTimeout(() => setIsLoaded(true), 1000);
           }
         };
       });
     };
 
     preloadImages();
-
-    return () => clearInterval(counterInterval);
   }, []);
 
   useEffect(() => {
-    if (isLoaded) {
-      // Start rotation only after loading is complete
+    if (isLoaded && !isHovered) {
       const interval = setInterval(() => {
         setRotate((prev) => prev + 46);
       }, 5000);
       return () => clearInterval(interval);
     }
-  }, [isLoaded]);
+  }, [isLoaded, isHovered]);
 
   function getTranslateZ() {
     if (typeof window === "undefined") return "400px";
@@ -73,49 +63,51 @@ const MovingCarousel = () => {
   }
 
   return (
-    <div className="w-full h-screen">
-      {!isLoaded ? (
-        <div className="w-full h-full flex flex-col items-center justify-center bg-gray-200">
-          {/* Counter Animation */}
-          <motion.div
-            className="text-6xl font-bold text-gray-800"
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ repeat: Infinity, duration: 1 }}
-          >
-            {counter}
-          </motion.div>
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 mt-4"></div>
-        </div>
-      ) : (
-        <div className="relative w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden">
-          <motion.div
-            className="relative w-[150px] md:w-[260px] h-[250px]"
-            animate={{ rotateY: rotate }}
-            transition={{ ease: "linear", duration: 4 }}
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            {images.map((src, index) => (
-              <div
-                key={index}
-                className="absolute w-[80%] h-full"
-                style={{
-                  transform: `rotateY(${index * (360 / images.length)}deg) translateZ(${translateZ})`,
-                }}
-              >
-                <img
-                  src={src}
-                  alt={`Image ${index + 1}`}
-                  className="w-full h-full object-cover rounded-xl shadow-lg"
-                />
-              </div>
-            ))}
-          </motion.div>
-          <div className="absolute bottom-10 text-center">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-800 tracking-wide">
-              Just Famous
-            </h1>
-          </div>
-        </div>
+    <div className="w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden">
+      {isLoaded && (
+        <motion.div
+          className="relative w-[150px] md:w-[260px] h-[250px]"
+          animate={{ rotateY: rotate }}
+          transition={{ ease: "linear", duration: 4 }}
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {images.map((src, index) => (
+            <div
+              key={index}
+              className="absolute w-[80%] h-full"
+              style={{
+                transform: `rotateY(${index * (360 / images.length)}deg) translateZ(${translateZ})`,
+              }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              <motion.img
+                src={src}
+                alt={`Image ${index + 1}`}
+                className="w-full h-full object-cover rounded-xl shadow-lg"
+                animate={{ filter: isHovered ? "invert(1)" : "invert(0)" }}
+                transition={{ duration: 0.5 }}
+              />
+              {isHovered && (
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center bg-black/50"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <motion.span
+                    className="text-white text-2xl font-bold"
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    Shop Now
+                  </motion.span>
+                </motion.div>
+              )}
+            </div>
+          ))}
+        </motion.div>
       )}
     </div>
   );
