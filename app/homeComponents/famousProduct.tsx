@@ -18,57 +18,44 @@ const images = [
 
 const MovingCarousel = () => {
   const [rotate, setRotate] = useState(0);
-  const [loadedImages, setLoadedImages] = useState(0);
-  const totalImages = images.length;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRotate((prev) => prev + 46);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const getTranslateZ = () => {
-    if (window.innerWidth <= 768) return "300px";
-    if (window.innerWidth <= 1024) return "400px";
-    return "500px";
-  };
-
+  const [isLoaded, setIsLoaded] = useState(false);
   const [translateZ, setTranslateZ] = useState(getTranslateZ());
 
   useEffect(() => {
-    const handleResize = () => {
-      setTranslateZ(getTranslateZ());
-    };
-
+    // Adjust carousel depth on window resize
+    const handleResize = () => setTranslateZ(getTranslateZ());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    // Simulate loader delay (3–5 seconds)
+    const timer = setTimeout(() => setIsLoaded(true), 4000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Rotate the carousel periodically
+    const interval = setInterval(() => {
+      setRotate((prev) => prev + 46);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  function getTranslateZ() {
+    if (window.innerWidth <= 768) return "300px";
+    if (window.innerWidth <= 1024) return "400px";
+    return "500px";
+  }
+
   return (
-    <div>
-      {loadedImages < totalImages ? (
-        <div className="w-full h-screen flex items-center justify-center bg-gray-200">
+    <div className="w-full h-screen">
+      {!isLoaded ? (
+        <div className="w-full h-full flex items-center justify-center bg-gray-200">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"></div>
         </div>
       ) : (
-        <div
-          style={{
-            backgroundColor: "#D2D2D2",
-            backgroundImage: `
-              repeating-linear-gradient(
-                to right, transparent 0 100px,
-                #25283b22 100px 101px
-              ),
-              repeating-linear-gradient(
-                to bottom, transparent 0 100px,
-                #25283b22 100px 101px
-              )
-            `,
-          }}
-          className="w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden relative"
-        >
+        <div className="relative w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden">
           <motion.div
             className="relative w-[150px] md:w-[260px] h-[250px]"
             animate={{ rotateY: rotate }}
@@ -87,15 +74,14 @@ const MovingCarousel = () => {
                   src={src}
                   alt={`Image ${index + 1}`}
                   className="w-full h-full object-cover rounded-xl shadow-lg"
-                  onLoad={() => setLoadedImages((prev) => prev + 1)}
                 />
               </div>
             ))}
           </motion.div>
-          <div className="absolute inset-0 flex items-end justify-center">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-800 tracking-wide text-center">
-  just famoue
-             </h1>
+          <div className="absolute bottom-10 text-center">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-gray-800 tracking-wide">
+              Just Famous
+            </h1>
           </div>
         </div>
       )}
