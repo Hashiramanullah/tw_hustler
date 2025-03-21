@@ -82,6 +82,7 @@ const MovingCarousel = () => {
               onMouseLeave={() => setIsHovered(false)}
             >
               <motion.img
+              loading="lazy"
                 src={src}
                 alt={`Image ${index + 1}`}
                 className="w-full h-full object-cover rounded-xl shadow-lg"
