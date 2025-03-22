@@ -21,9 +21,9 @@ export default function Home() {
       <CategorySlider/>
       <Test/>
       <Product/>
-      {/* <Collections /> */}
+      <Collections />
       {/* <MovingCard/> */}
-      {/* <ProductList /> */}
+      <ProductList />
     </>
   );
 }

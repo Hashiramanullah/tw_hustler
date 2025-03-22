@@ -1,10 +1,10 @@
 
 
 'use client'
-
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getProducts } from '@/lib/actions/actions';
 
 const Product = () => {
   const [activeIndex, setActiveIndex] = useState(0);

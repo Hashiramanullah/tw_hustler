@@ -27,9 +27,11 @@ const FeaturedProduct = ({ image, name, price, discount }) => {
             </svg>
           </button>
           <button className="rounded-full bg-white p-2 text-black hover:bg-gray-200">
+            <Link href={"/cart"}
+            >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
+            </svg></Link>
           </button>
           <button className="rounded-full bg-white p-2 text-black hover:bg-gray-200">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,7 +66,7 @@ const Test = () => {
       <div>
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">Our Products</h2>
-          <div className="border-b border-gray-200">
+          {/* <div className="border-b border-gray-200">
             <nav className="-mb-px flex space-x-8">
               {['featured', 'bestsellers', 'new', 'sale'].map((tab) => (
                 <button
@@ -80,53 +82,53 @@ const Test = () => {
                 </button>
               ))}
             </nav>
-          </div>
+          </div> */}
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:gap-x-6 lg:gap-y-10">
           <FeaturedProduct 
-            image="/path-to-product1.jpg" 
+            image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D" 
             name="Classic Cotton T-Shirt" 
             price={29.99} 
             discount={0} 
           />
           <FeaturedProduct 
-            image="/path-to-product2.jpg" 
+            image="https://plus.unsplash.com/premium_photo-1679913792906-13ccc5c84d44?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D" 
             name="Slim Fit Jeans" 
             price={49.99} 
             discount={15} 
           />
           <FeaturedProduct 
-            image="/path-to-product3.jpg" 
+            image="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D" 
             name="Leather Casual Shoes" 
             price={89.99} 
             discount={0} 
           />
           <FeaturedProduct 
-            image="/path-to-product4.jpg" 
+            image="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D" 
             name="Wool Blend Coat" 
             price={129.99} 
             discount={20} 
           />
           <FeaturedProduct 
-            image="/path-to-product5.jpg" 
+            image="https://plus.unsplash.com/premium_photo-1664392147011-2a720f214e01?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D" 
             name="Wireless Earbuds" 
             price={79.99} 
             discount={10} 
           />
           <FeaturedProduct 
-            image="/path-to-product6.jpg" 
+            image="https://plus.unsplash.com/premium_photo-1661597156656-75ba116e9e1d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D" 
             name="Sports Watch" 
             price={119.99} 
             discount={0} 
           />
           <FeaturedProduct 
-            image="/path-to-product7.jpg" 
+            image="https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D" 
             name="Canvas Backpack" 
             price={59.99} 
             discount={0} 
           />
           <FeaturedProduct 
-            image="/path-to-product8.jpg" 
+            image="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjh8fHByb2R1Y3R8ZW58MHx8MHx8fDA%3D" 
             name="Polarized Sunglasses" 
             price={34.99} 
             discount={25} 
